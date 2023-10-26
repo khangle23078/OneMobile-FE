@@ -16,14 +16,14 @@ export const adminMenus = [
     icon: <PieChartOutlined />,
   },
   {
-    label: (
-      <a href="category" className="text-white">
-        Danh mục
-      </a>
-    ),
+    label: <p>Danh mục</p>,
     key: '2',
     icon: <FileOutlined />,
-    children: [],
+    children: [
+      {
+        label: <a href="/admin/category">Danh sách</a>,
+      },
+    ],
   },
   {
     label: (

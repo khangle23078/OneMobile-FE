@@ -2,6 +2,7 @@ import { useLoginMutation } from '@/app/services/auth';
 import { useAppDispatch } from '@/app/store';
 import { setCredential } from '@/features/authSlice';
 import { Button, Card, Form, Input, Typography, message } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 const { Title } = Typography;
 
@@ -13,12 +14,13 @@ interface FormType {
 const Login = () => {
   const dispatch = useAppDispatch();
   const [login, { isLoading, isError, data }] = useLoginMutation();
-
+  const navigate = useNavigate();
   const onSubmit = async (values: FormType) => {
     await login(values);
     if (data) {
       message.success('Đăng nhập thành công');
       dispatch(setCredential(data));
+      navigate('/admin/category');
     }
 
     if (isError) {

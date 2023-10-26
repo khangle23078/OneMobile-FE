@@ -3,6 +3,7 @@ import { lazy } from 'react';
 import AdminLayout from '@/layouts/AdminLayout';
 
 const Login = lazy(() => import('@pages/auth/Login'));
+const CategoryList = lazy(() => import('@pages/admin/category/CategoryList'));
 
 export const router = createBrowserRouter([
   {
@@ -12,6 +13,16 @@ export const router = createBrowserRouter([
   {
     path: 'admin',
     element: <AdminLayout />,
-    children: [],
+    children: [
+      {
+        path: 'category',
+        children: [
+          {
+            index: true,
+            element: <CategoryList />,
+          },
+        ],
+      },
+    ],
   },
 ]);

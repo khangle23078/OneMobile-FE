@@ -25,7 +25,6 @@ const AdminLayout = () => {
             <Breadcrumb.Item>Bill</Breadcrumb.Item>
           </Breadcrumb>
           <div style={{ padding: 24, minHeight: 360, background: colorBgContainer }}>
-            Bill is a cat.
             <Outlet />
           </div>
         </Content>
