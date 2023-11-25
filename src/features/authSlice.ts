@@ -22,10 +22,7 @@ const authSlice = createSlice({
       state.accessToken = userData?.accessToken;
       localStorage.setItem('user', JSON.stringify(userData));
     },
-  },
-  extraReducers: (builder) => {
-    builder.addMatcher;
-  },
+  }
 });
 
 export const { setCredential } = authSlice.actions;

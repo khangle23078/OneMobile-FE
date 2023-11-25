@@ -23,6 +23,9 @@ export const adminMenus = [
       {
         label: <a href="/admin/category">Danh sách</a>,
       },
+      {
+        label: <a href="/admin/category/add">Thêm mới</a>,
+      },
     ],
   },
   {

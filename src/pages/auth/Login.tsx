@@ -1,6 +1,6 @@
 import { useLoginMutation } from '@/app/services/auth';
-import { useAppDispatch } from '@/app/store';
 import { setCredential } from '@/features/authSlice';
+import { useAppDispatch } from '@/hooks/hook';
 import { Button, Card, Form, Input, Typography, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,7 +16,7 @@ const Login = () => {
   const [login, { isLoading, isError, data }] = useLoginMutation();
   const navigate = useNavigate();
   const onSubmit = async (values: FormType) => {
-    await login(values);
+    await login(values).unwrap();
     if (data) {
       message.success('Đăng nhập thành công');
       dispatch(setCredential(data));
@@ -29,7 +29,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex items-center justify-center min-h-screen">
       <Card className="w-[400px]">
         <Title level={3} className="text-center">
           Đăng nhập
