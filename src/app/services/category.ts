@@ -11,11 +11,18 @@ const categoryApi = api.injectEndpoints({
     createCategory: build.mutation<void, { name: string }>({
       query: (data: { name: string }) => ({
         url: '/category/create',
-        method: 'post',
+        method: 'POST',
         body: data,
       }),
     }),
+    deleteCategory: build.mutation<void, string | undefined>({
+      query: (id) => ({
+        url: `/category/deleteById/${id}`,
+        method: 'POST'
+      }),
+      invalidatesTags: ['Category']
+    })
   }),
 });
 
-export const { useGetCategoriesQuery, useCreateCategoryMutation } = categoryApi;
+export const { useGetCategoriesQuery, useCreateCategoryMutation, useDeleteCategoryMutation } = categoryApi;

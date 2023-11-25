@@ -4,13 +4,14 @@ import {
   PieChartOutlined,
   ShoppingCartOutlined,
 } from '@ant-design/icons';
+import { NavLink } from 'react-router-dom';
 
 export const adminMenus = [
   {
     label: (
-      <a href="/admin/dashboard" className="text-white">
+      <NavLink to="/admin/dashboard" className="text-white">
         Dashboard
-      </a>
+      </NavLink>
     ),
     key: '1',
     icon: <PieChartOutlined />,
@@ -21,18 +22,18 @@ export const adminMenus = [
     icon: <FileOutlined />,
     children: [
       {
-        label: <a href="/admin/category">Danh sách</a>,
+        label: <NavLink to="/admin/category">Danh sách</NavLink>,
       },
       {
-        label: <a href="/admin/category/add">Thêm mới</a>,
+        label: <NavLink to="/admin/category/add">Thêm mới</NavLink>,
       },
     ],
   },
   {
     label: (
-      <a href="product" className="text-white">
+      <NavLink to="product" className="text-white">
         Sản phẩm
-      </a>
+      </NavLink>
     ),
     key: '5',
     icon: <DesktopOutlined />,
@@ -40,9 +41,9 @@ export const adminMenus = [
   },
   {
     label: (
-      <a href="order" className="text-white">
+      <NavLink to="order" className="text-white">
         Đơn hàng
-      </a>
+      </NavLink>
     ),
     key: '8',
     icon: <ShoppingCartOutlined />,

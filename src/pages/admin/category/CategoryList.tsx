@@ -1,47 +1,64 @@
-import { useGetCategoriesQuery } from '@/app/services/category';
+import { useDeleteCategoryMutation, useGetCategoriesQuery } from '@/app/services/category';
 import { Category } from '@/interfaces/category';
-import { Button, Space, Table } from 'antd';
+import { Button, Popconfirm, Space, Table, message } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
+import { NavLink } from 'react-router-dom';
 
 interface DataType {
-  id: string;
+  _id: string,
+  id: number;
   name: string;
 }
 
-const columns: ColumnsType<DataType> = [
-  {
-    title: 'Id',
-    dataIndex: 'id',
-    key: 'id',
-  },
-  {
-    title: 'Tên danh mục',
-    dataIndex: 'name',
-    key: 'name',
-  },
-
-  {
-    title: 'Thao tác',
-    key: 'action',
-    render: (_, category) => (
-      <Space size="middle">
-        <Button type="dashed" href={`/admin/cateogry/${category.id}/edit`}>
-          Sửa
-        </Button>
-        <Button type="primary" danger>
-          Xóa
-        </Button>
-      </Space>
-    ),
-  },
-];
-
 const CategoryList = () => {
   const { isLoading, data: response } = useGetCategoriesQuery();
+  const [deleteCategory, { isSuccess }] = useDeleteCategoryMutation()
 
-  const dataSource = response?.data?.map((category: Category) => {
+  const handleDeleteCategory = async (id: string | undefined) => {
+    await deleteCategory(id)
+    if (isSuccess) {
+      message.success('Xóa danh mục thành công')
+    }
+  }
+
+  const columns: ColumnsType<DataType> = [
+    {
+      title: 'Id',
+      dataIndex: 'id',
+      key: 'id',
+    },
+    {
+      title: 'Tên danh mục',
+      dataIndex: 'name',
+      key: 'name',
+    },
+
+    {
+      title: 'Thao tác',
+      key: 'action',
+      render: (_, category) => (
+        <Space size="middle">
+          <NavLink to={`/admin/cateogry/${category.id}/edit`}>
+            <Button type='dashed'>Sửa</Button>
+          </NavLink>
+          <Popconfirm
+            title="Xóa danh mục"
+            description="Bạn có chắc muốn xóa không?"
+            okText="Xóa"
+            onConfirm={() => handleDeleteCategory(category._id)}
+            cancelText="Không">
+            <Button danger type="primary">
+              Xóa
+            </Button>
+          </Popconfirm>
+        </Space >
+      ),
+    },
+  ];
+  const dataSource = response?.data?.map((category: Category, index: number) => {
     return {
-      id: category._id,
+      id: index + 1,
+      _id: category._id,
       name: category.name,
     };
   });
