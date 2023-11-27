@@ -38,7 +38,7 @@ const CategoryList = () => {
       key: 'action',
       render: (_, category) => (
         <Space size="middle">
-          <NavLink to={`/admin/cateogry/${category.id}/edit`}>
+          <NavLink to={`/admin/category/edit/${category._id}`}>
             <Button type='dashed'>Sửa</Button>
           </NavLink>
           <Popconfirm

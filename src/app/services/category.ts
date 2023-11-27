@@ -8,21 +8,41 @@ const categoryApi = api.injectEndpoints({
       query: () => '/category/getAll',
       providesTags: ['Category'],
     }),
+    getCategory: build.query<Response<Category>, string | undefined>({
+      query: (id) => `/category/getById/${id}`,
+      providesTags: ['Category'],
+    }),
     createCategory: build.mutation<void, { name: string }>({
       query: (data: { name: string }) => ({
         url: '/category/create',
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: ['Category']
     }),
-    deleteCategory: build.mutation<void, string | undefined>({
-      query: (id) => ({
-        url: `/category/deleteById/${id}`,
-        method: 'POST'
+    editCategory: build.mutation<void, { id: string | undefined; data: Partial<Category> }>({
+      query: (category) => ({
+        url: `/category/updateById/${category.id}`,
+        method: 'PUT',
+        body: category.data
       }),
       invalidatesTags: ['Category']
     })
+    ,
+    deleteCategory: build.mutation<void, string | undefined>({
+      query: (id) => ({
+        url: `/category/deleteById/${id}`,
+        method: 'post',
+      }),
+      invalidatesTags: ['Category'],
+    }),
   }),
 });
 
-export const { useGetCategoriesQuery, useCreateCategoryMutation, useDeleteCategoryMutation } = categoryApi;
+export const {
+  useGetCategoriesQuery,
+  useGetCategoryQuery,
+  useCreateCategoryMutation,
+  useEditCategoryMutation,
+  useDeleteCategoryMutation,
+} = categoryApi;

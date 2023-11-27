@@ -20,7 +20,7 @@ const CategoryAdd = () => {
   };
 
   return (
-    <div>
+    <>
       <Title level={4}>Tạo danh mục</Title>
       <Form layout="vertical" name="categoryAdd" onFinish={onSubmit} initialValues={{ name: '' }}>
         <Form.Item
@@ -36,7 +36,7 @@ const CategoryAdd = () => {
           </Button>
         </Form.Item>
       </Form>
-    </div>
+    </>
   );
 };
 
