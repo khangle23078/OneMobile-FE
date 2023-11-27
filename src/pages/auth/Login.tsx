@@ -13,19 +13,22 @@ interface FormType {
 
 const Login = () => {
   const dispatch = useAppDispatch();
-  const [login, { isLoading, isError, data }] = useLoginMutation();
+  const [login, { isLoading, isError }] = useLoginMutation();
   const navigate = useNavigate();
+
   const onSubmit = async (values: FormType) => {
-    await login(values).unwrap();
-    if (data) {
+    try {
+      const { data } = await login(values).unwrap();
       message.success('Đăng nhập thành công');
       dispatch(setCredential(data));
       navigate('/admin/category');
+      if (isError) {
+        message.error('Có lỗi xảy ra khi đăng nhập');
+      }
+    } catch (error) {
+      console.log(error);
     }
 
-    if (isError) {
-      message.error('Có lỗi xảy ra khi đăng nhập');
-    }
   };
 
   return (

@@ -37,7 +37,11 @@ export const adminMenus = [
     ),
     key: '5',
     icon: <DesktopOutlined />,
-    children: [],
+    children: [
+      {
+        label: <NavLink to="/admin/product">Danh sách</NavLink>,
+      },
+    ],
   },
   {
     label: (
