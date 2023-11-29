@@ -7,6 +7,7 @@ const CategoryList = lazy(() => import('@pages/admin/category/CategoryList'));
 const CategoryAdd = lazy(() => import('@pages/admin/category/CategoryAdd'));
 const CategoryEdit = lazy(() => import('@pages/admin/category/CategoryEdit'));
 const ProductList = lazy(() => import('@pages/admin/product/ProductList'))
+const ProductAdd = lazy(() => import('@pages/admin/product/ProductAdd'))
 
 export const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
           {
             path: '',
             element: <ProductList />
+          },
+          {
+            path: 'add',
+            element: <ProductAdd />
           }
         ]
       }

@@ -5,8 +5,10 @@ import { RouterProvider } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from './app/store';
 import { router } from './routes/PublicRoute';
-import './styles/style.css';
 import Loading from './components/Loading';
+import './styles/style.css';
+
+
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <Provider store={store}>

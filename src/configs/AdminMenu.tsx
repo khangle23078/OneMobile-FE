@@ -23,9 +23,11 @@ export const adminMenus = [
     children: [
       {
         label: <NavLink to="/admin/category">Danh sách</NavLink>,
+        key: '3'
       },
       {
         label: <NavLink to="/admin/category/add">Thêm mới</NavLink>,
+        key: '4'
       },
     ],
   },
@@ -40,6 +42,11 @@ export const adminMenus = [
     children: [
       {
         label: <NavLink to="/admin/product">Danh sách</NavLink>,
+        key: '6'
+      },
+      {
+        label: <NavLink to="/admin/product/add">Thêm mới</NavLink>,
+        key: '7'
       },
     ],
   },
