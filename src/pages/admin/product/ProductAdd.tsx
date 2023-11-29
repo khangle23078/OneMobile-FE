@@ -25,10 +25,10 @@ const ProductAdd: React.FC = () => {
 
   const handleRemoveImage = async (public_id: string | undefined) => {
     try {
-      const result = await deleteImage({ public_id }).unwrap();
-      console.log(result);
+      const response = await deleteImage({ public_id }).unwrap();
+      message.success(response?.message)
     } catch (error: unknown) {
-      console.log(error as string);
+      message.success(error as string)
     }
   }
 

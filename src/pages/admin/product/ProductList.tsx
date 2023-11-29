@@ -1,6 +1,6 @@
-import { useGetProductsQuery } from '@/app/services/product'
+import { useDeleteProductMutation, useGetProductsQuery } from '@/app/services/product'
 import { Product } from '@/interfaces/product'
-import { Button, Image, Space, Table, Typography } from 'antd'
+import { Button, Image, Space, Popconfirm, Table, Typography, message } from 'antd'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
@@ -8,7 +8,17 @@ const { Title } = Typography
 
 const ProductList: React.FC = () => {
   const { data: response, isLoading } = useGetProductsQuery()
+  const [deleteProduct] = useDeleteProductMutation()
 
+  const handleDeleteProduct = async (_id: string) => {
+    try {
+      const response = await deleteProduct(_id).unwrap();
+      message.success(response.message)
+    } catch (error: unknown) {
+      message.error(error as string)
+    }
+
+  }
 
   const colums = [
     {
@@ -49,7 +59,9 @@ const ProductList: React.FC = () => {
             <NavLink to={`/admin/product/edit/${_id}`}>
               <Button type='dashed'>Sửa</Button>
             </NavLink>
-            <Button type='primary' danger>Xóa</Button>
+            <Popconfirm title='Xóa sản phẩm' onConfirm={() => handleDeleteProduct(_id)} okText='Xóa' cancelText='Không'>
+              <Button type='primary' danger>Xóa</Button>
+            </Popconfirm>
           </Space>
         )
       }
