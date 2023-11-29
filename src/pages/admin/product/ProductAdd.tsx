@@ -1,8 +1,10 @@
 import { useGetCategoriesQuery } from '@/app/services/category';
 import { useCreateProductMutation } from '@/app/services/product';
+import { useDeleteFileMutation } from '@/app/services/upload';
 import { editorConfig } from '@/configs/editor.config';
 import { useAppSelector } from '@/hooks/hook';
 import { Category } from '@/interfaces/category';
+import { Iimage } from '@/interfaces/image';
 import { Product } from '@/interfaces/product';
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, Form, Image, Input, InputNumber, Select, Typography, Upload, message } from 'antd';
@@ -14,11 +16,21 @@ import { useNavigate } from 'react-router-dom';
 const { Title } = Typography;
 
 const ProductAdd: React.FC = () => {
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [imageUrl, setImageUrl] = useState<Iimage | null>(null);
   const navigate = useNavigate()
   const { accessToken } = useAppSelector((state) => state.auth)
   const { data: response } = useGetCategoriesQuery();
   const [createProduct] = useCreateProductMutation()
+  const [deleteImage] = useDeleteFileMutation();
+
+  const handleRemoveImage = async (public_id: string | undefined) => {
+    try {
+      const result = await deleteImage({ public_id }).unwrap();
+      console.log(result);
+    } catch (error: unknown) {
+      console.log(error as string);
+    }
+  }
 
   const handleAddProduct = async (data: Partial<Product>) => {
     try {
@@ -79,8 +91,8 @@ const ProductAdd: React.FC = () => {
           name="image"
           getValueFromEvent={(event) => {
             const image = event?.fileList[0]?.response?.image;
-            setImageUrl(image?.url)
-            return image?.url;
+            setImageUrl(image)
+            return image;
           }}
         >
           <Upload
@@ -90,11 +102,14 @@ const ProductAdd: React.FC = () => {
             headers={{
               Authorization: `Bearer ${accessToken}`
             }}
+            onRemove={() => handleRemoveImage(imageUrl?.public_id)}
           >
             <Button icon={<UploadOutlined />}>Chọn ảnh để tải lên</Button>
           </Upload >
-          {imageUrl ? <Image src={imageUrl} width={300} height={300} /> : null}
         </Form.Item>
+        <div>
+          {imageUrl ? <Image src={imageUrl?.url} width={300} height={300} /> : null}
+        </div>
         <Button type="primary" htmlType="submit">
           Thêm mới
         </Button>
