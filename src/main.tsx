@@ -7,6 +7,7 @@ import { persistor, store } from './app/store';
 import { router } from './routes/PublicRoute';
 import Loading from './components/Loading';
 import './styles/style.css';
+import 'react-quill/dist/quill.snow.css';
 
 
 

@@ -1,6 +1,6 @@
 import { useDeleteProductMutation, useGetProductsQuery } from '@/app/services/product'
 import { Product } from '@/interfaces/product'
-import { Button, Image, Space, Popconfirm, Table, Typography, message } from 'antd'
+import { Button, Image, Space, Popconfirm, Table, Typography, message, Tag } from 'antd'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
@@ -47,7 +47,10 @@ const ProductList: React.FC = () => {
     {
       title: 'Danh mục',
       dataIndex: 'category',
-      index: 'category'
+      index: 'category',
+      render: (category: string) => {
+        return <Tag>{category}</Tag>
+      }
     },
     {
       title: 'Thao tác',
@@ -73,7 +76,7 @@ const ProductList: React.FC = () => {
       id: index + 1,
       _id: product._id,
       name: product.name,
-      category: product.category_id,
+      category: product.category?.name,
       image: product.image?.url,
       isHot: product.isHot,
       origin_price: product.origin_price,
@@ -81,6 +84,8 @@ const ProductList: React.FC = () => {
       desc: product.desc,
     }
   })
+
+  console.log(dataSource);
 
   return (
     <>

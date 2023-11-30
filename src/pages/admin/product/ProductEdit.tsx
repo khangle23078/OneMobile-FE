@@ -1,57 +1,79 @@
-import { useGetCategoriesQuery } from '@/app/services/category';
-import { useCreateProductMutation } from '@/app/services/product';
-import { useDeleteFileMutation } from '@/app/services/upload';
-import { editorConfig } from '@/configs/editor.config';
-import { useAppSelector } from '@/hooks/hook';
-import { Category } from '@/interfaces/category';
-import { Iimage } from '@/interfaces/image';
-import { Product } from '@/interfaces/product';
-import { UploadOutlined } from '@ant-design/icons';
-import { Button, Form, Image, Input, InputNumber, Select, Typography, Upload, message } from 'antd';
-import React, { useState } from 'react';
-import ReactQuill from 'react-quill';
-import { useNavigate } from 'react-router-dom';
+import { useGetCategoriesQuery } from '@/app/services/category'
+import { useEditproductMutation, useGetProductQuery } from '@/app/services/product'
+import { editorConfig } from '@/configs/editor.config'
+import { useAppSelector } from '@/hooks/hook'
+import { Category } from '@/interfaces/category'
+import { Iimage } from '@/interfaces/image'
+import { Button, Form, Image, Input, InputNumber, Select, Typography, Upload, message } from 'antd'
+import { useForm } from 'antd/es/form/Form'
+import React, { useEffect, useState } from 'react'
+import ReactQuill from 'react-quill'
+import { useNavigate, useParams } from 'react-router-dom'
+import { UploadOutlined } from '@ant-design/icons'
+import { useDeleteFileMutation } from '@/app/services/upload'
+import { Product } from '@/interfaces/product'
 
-const { Title } = Typography;
+const { Title } = Typography
 
-const ProductAdd: React.FC = () => {
+const ProductEdit: React.FC = () => {
+  const { id } = useParams()
   const [imageUrl, setImageUrl] = useState<Iimage | null>(null);
   const navigate = useNavigate()
+  const [form] = useForm()
   const { accessToken } = useAppSelector((state) => state.auth)
-  const { data: response } = useGetCategoriesQuery();
-  const [createProduct] = useCreateProductMutation()
-  const [deleteImage] = useDeleteFileMutation();
+  const { data: response } = useGetProductQuery(id);
+  const { data } = useGetCategoriesQuery();
+  const [deleteImage] = useDeleteFileMutation()
+  const [editProduct, { isLoading }] = useEditproductMutation()
 
-  const handleRemoveImage = async (public_id: string | undefined) => {
-    try {
-      const response = await deleteImage({ public_id }).unwrap();
-      message.success(response?.message)
-    } catch (error: unknown) {
-      message.success(error as string)
+  useEffect(() => {
+    if (response) {
+      const product = response?.data;
+      form.setFieldsValue({
+        name: product.name,
+        origin_price: product.origin_price,
+        category: product.category,
+        desc: product.desc,
+        image: product.image.url
+      })
     }
-  }
-
-  const handleAddProduct = async (data: Partial<Product>) => {
-    try {
-      const response = await createProduct(data).unwrap();
-      message.success(response.message);
-      navigate('/admin/product')
-    } catch (error: unknown) {
-      message.error(error as string)
+    return () => {
+      form.resetFields()
     }
-  };
+  }, [response, form])
 
-  const categories = response?.data?.map((category: Category) => {
+
+  const categories = data?.data.map((category: Category) => {
     return {
       label: category.name,
       value: category._id
     }
   })
 
+  const handleRemoveImage = async (public_id: string | undefined) => {
+    try {
+      const response = await deleteImage({ public_id }).unwrap();
+      message.success(response?.message)
+      navigate('/admin/product')
+    } catch (error: unknown) {
+      message.success(error as string)
+    }
+  }
+
+  const handleEditProduct = async (data: Partial<Product>) => {
+    try {
+      const response = await editProduct({ id, data }).unwrap()
+      message.success(response.message)
+      navigate('/admin/product')
+    } catch (error: unknown) {
+      message.error(error as string)
+    }
+  }
+
   return (
     <>
-      <Title level={4}>Thêm mới sản phẩm</Title>
-      <Form name="productAdd" layout="vertical" onFinish={handleAddProduct}>
+      <Title level={4}>Sửa sản phẩm</Title>
+      <Form name="productEdit" form={form} layout="vertical" onFinish={handleEditProduct}>
         <Form.Item
           label="Tên sản phẩm"
           name="name"
@@ -106,15 +128,15 @@ const ProductAdd: React.FC = () => {
             <Button icon={<UploadOutlined />}>Chọn ảnh để tải lên</Button>
           </Upload >
         </Form.Item>
-        <div>
-          {imageUrl ? <Image src={imageUrl?.url} width={300} height={300} /> : null}
+        <div className='py-2'>
+          {form.getFieldValue('image') ? <Image src={form.getFieldValue('image')?.url} width={300} height={300} /> : null}
         </div>
-        <Button type="primary" htmlType="submit">
-          Thêm mới
+        <Button type="primary" htmlType="submit" loading={isLoading}>
+          Sửa sản phẩm
         </Button>
       </Form>
     </>
-  );
-};
+  )
+}
 
-export default ProductAdd;
+export default ProductEdit

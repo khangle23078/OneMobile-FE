@@ -8,10 +8,15 @@ export interface Product {
   sale_pice: number
   desc: string
   isHot: boolean
-  category_id: string
+  category: Category
   createdAt: string
   updatedAt: string
   __v: number
+}
+
+export interface Category {
+  _id: string,
+  name: string
 }
 
 export interface Image {

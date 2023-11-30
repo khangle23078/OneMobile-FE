@@ -4,7 +4,7 @@ import { Category } from '@/interfaces/category';
 
 const categoryApi = api.injectEndpoints({
   endpoints: (build) => ({
-    getCategories: build.query<Response<Category[] | undefined>, void>({
+    getCategories: build.query<Response<Category[]>, void>({
       query: () => '/category/getAll',
       providesTags: ['Category'],
     }),
