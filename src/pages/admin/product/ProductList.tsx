@@ -20,7 +20,7 @@ const ProductList: React.FC = () => {
 
   }
 
-  const colums = [
+  const comlumns = [
     {
       title: 'Id',
       dataIndex: 'id',
@@ -85,12 +85,10 @@ const ProductList: React.FC = () => {
     }
   })
 
-  console.log(dataSource);
-
   return (
     <>
       <Title level={3}>Danh sách sản phẩm</Title>
-      <Table dataSource={dataSource} columns={colums} loading={isLoading} rowKey={'id'} />
+      <Table dataSource={dataSource} columns={comlumns} loading={isLoading} rowKey={'id'} />
     </>
   )
 }

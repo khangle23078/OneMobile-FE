@@ -58,6 +58,11 @@ export const adminMenus = [
     ),
     key: '8',
     icon: <ShoppingCartOutlined />,
-    children: [],
+    children: [
+      {
+        label: <NavLink to="/admin/order">Danh sách</NavLink>,
+        key: '9'
+      },
+    ],
   },
 ];
