@@ -3,6 +3,7 @@ import {
   FileOutlined,
   PieChartOutlined,
   ShoppingCartOutlined,
+  PictureOutlined
 } from '@ant-design/icons';
 import { NavLink } from 'react-router-dom';
 
@@ -62,6 +63,21 @@ export const adminMenus = [
       {
         label: <NavLink to="/admin/order">Danh sách</NavLink>,
         key: '9'
+      },
+    ],
+  },
+  {
+    label: (
+      <NavLink to="order" className="text-white">
+        Banner
+      </NavLink>
+    ),
+    key: '10',
+    icon: <PictureOutlined />,
+    children: [
+      {
+        label: <NavLink to="/admin/banner">Danh sách</NavLink>,
+        key: '11'
       },
     ],
   },
