@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { lazy } from 'react';
 import AdminLayout from '@/layouts/AdminLayout';
+import PrivateRoute from './PrivateRoute';
 
 const Login = lazy(() => import('@pages/auth/Login'));
 const CategoryList = lazy(() => import('@pages/admin/category/CategoryList'));
@@ -19,7 +20,11 @@ export const router = createBrowserRouter([
   },
   {
     path: 'admin',
-    element: <AdminLayout />,
+    element:
+      <PrivateRoute>
+        <AdminLayout />
+      </PrivateRoute>
+    ,
     children: [
       {
         path: 'category',
