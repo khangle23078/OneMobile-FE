@@ -25,8 +25,8 @@ const BannerList: React.FC = () => {
     },
     {
       title: 'Link sản phẩm',
-      dataIndex: 'product_id',
-      key: 'product_id'
+      dataIndex: 'product_link',
+      key: 'product_link'
     },
     {
       title: 'Thao tác',
@@ -35,7 +35,7 @@ const BannerList: React.FC = () => {
       render: (_id: string) => {
         return <>
           <Space>
-            <Link to={`/admin/banner/edit/${_id}}`}>
+            <Link to={`/admin/banner/edit/${_id}`}>
               <Button type='dashed'>Sửa</Button>
             </Link>
             <Popconfirm title='Bạn có chắc muốn xóa không?' okText='Xóa' cancelText='Không'>
@@ -52,7 +52,7 @@ const BannerList: React.FC = () => {
       id: index + 1,
       _id: banner._id,
       image: banner.image?.url,
-      product_id: banner.product_id
+      product_link: banner.product_link
     }
   })
 

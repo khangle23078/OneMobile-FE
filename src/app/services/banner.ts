@@ -8,14 +8,29 @@ const bannerApi = api.injectEndpoints({
       query: () => '/banner/getAll',
       providesTags: ['Banner']
     }),
+    getBanner: build.query<Response<Banner>, string | undefined>({
+      query: (id) => `/banner/getById/${id}`
+    }),
     createBanner: build.mutation<Response<null>, Partial<Banner>>({
       query: (banner) => ({
         url: '/banner/create',
         method: 'POST',
         body: banner
       }),
+    }),
+    editBanner: build.mutation<Response<null>, { id: string | undefined, data: Partial<Banner> }>({
+      query: (banner) => ({
+        url: `/banner/updateById/${banner.id}`,
+        method: 'PUT',
+        body: banner.data
+      }),
     })
   })
 })
 
-export const { useGetBannersQuery, useCreateBannerMutation } = bannerApi
+export const {
+  useGetBannersQuery,
+  useGetBannerQuery,
+  useCreateBannerMutation,
+  useEditBannerMutation
+} = bannerApi
