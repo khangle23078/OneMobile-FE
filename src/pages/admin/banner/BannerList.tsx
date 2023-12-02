@@ -1,6 +1,6 @@
-import { useGetBannersQuery } from '@/app/services/banner'
+import { useDeleteBannerMutation, useGetBannersQuery } from '@/app/services/banner'
 import { Banner } from '@/interfaces/banner'
-import { Button, Image, Popconfirm, Space, Table, Typography } from 'antd'
+import { Button, Image, Popconfirm, Space, Table, Typography, message } from 'antd'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
@@ -8,6 +8,16 @@ const { Title } = Typography
 
 const BannerList: React.FC = () => {
   const { data: response, isLoading } = useGetBannersQuery()
+  const [deleteBanner] = useDeleteBannerMutation()
+
+  const handleDeleteBanner = async (_id: string) => {
+    try {
+      const response = await deleteBanner(_id).unwrap()
+      message.success(response.message)
+    } catch (error: unknown) {
+      message.error(error as string)
+    }
+  }
 
   const comlumns = [
     {
@@ -38,7 +48,11 @@ const BannerList: React.FC = () => {
             <Link to={`/admin/banner/edit/${_id}`}>
               <Button type='dashed'>Sửa</Button>
             </Link>
-            <Popconfirm title='Bạn có chắc muốn xóa không?' okText='Xóa' cancelText='Không'>
+            <Popconfirm
+              title='Bạn có chắc muốn xóa không?'
+              okText='Xóa'
+              cancelText='Không'
+              onConfirm={() => handleDeleteBanner(_id)}>
               <Button type='primary' danger>Xóa</Button>
             </Popconfirm>
           </Space>

@@ -24,6 +24,14 @@ const bannerApi = api.injectEndpoints({
         method: 'PUT',
         body: banner.data
       }),
+    }),
+    deleteBanner: build.mutation<Response<null>, string>({
+      query: (id) => ({
+        url: `/banner/deleteById/${id}`,
+        method: 'DELETE',
+        body: id
+      }),
+      invalidatesTags: ['Banner']
     })
   })
 })
@@ -32,5 +40,6 @@ export const {
   useGetBannersQuery,
   useGetBannerQuery,
   useCreateBannerMutation,
-  useEditBannerMutation
+  useEditBannerMutation,
+  useDeleteBannerMutation
 } = bannerApi
