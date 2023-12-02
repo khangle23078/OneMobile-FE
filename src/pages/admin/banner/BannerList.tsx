@@ -9,9 +9,6 @@ const { Title } = Typography
 const BannerList: React.FC = () => {
   const { data: response, isLoading } = useGetBannersQuery()
 
-  console.log(response?.data);
-
-
   const comlumns = [
     {
       title: 'Id',
@@ -25,6 +22,11 @@ const BannerList: React.FC = () => {
       render: (image: string) => {
         return <Image src={image} width={100} height={100} />
       }
+    },
+    {
+      title: 'Link sản phẩm',
+      dataIndex: 'product_id',
+      key: 'product_id'
     },
     {
       title: 'Thao tác',
@@ -49,7 +51,8 @@ const BannerList: React.FC = () => {
     return {
       id: index + 1,
       _id: banner._id,
-      image: banner.image?.url
+      image: banner.image?.url,
+      product_id: banner.product_id
     }
   })
 

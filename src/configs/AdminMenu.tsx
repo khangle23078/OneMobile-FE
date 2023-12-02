@@ -79,6 +79,10 @@ export const adminMenus = [
         label: <NavLink to="/admin/banner">Danh sách</NavLink>,
         key: '11'
       },
+      {
+        label: <NavLink to="/admin/banner/add">Thêm mới</NavLink>,
+        key: '12'
+      },
     ],
   },
 ];

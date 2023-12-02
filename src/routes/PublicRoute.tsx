@@ -12,6 +12,7 @@ const ProductAdd = lazy(() => import('@pages/admin/product/ProductAdd'))
 const ProductEdit = lazy(() => import('@pages/admin/product/ProductEdit'))
 const OrderList = lazy(() => import('@pages/admin/order/OrderList'))
 const BannerList = lazy(() => import('@pages/admin/banner/BannerList'))
+const BannerAdd = lazy(() => import('@pages/admin/banner/BannerAdd'))
 
 export const router = createBrowserRouter([
   {
@@ -75,6 +76,10 @@ export const router = createBrowserRouter([
           {
             path: '',
             element: <BannerList />
+          },
+          {
+            path: 'add',
+            element: <BannerAdd />
           }
         ]
       }

@@ -5,9 +5,17 @@ import { Banner } from "@/interfaces/banner";
 const bannerApi = api.injectEndpoints({
   endpoints: (build) => ({
     getBanners: build.query<Response<Banner[]>, void>({
-      query: () => '/banner/getAll'
+      query: () => '/banner/getAll',
+      providesTags: ['Banner']
+    }),
+    createBanner: build.mutation<Response<null>, Partial<Banner>>({
+      query: (banner) => ({
+        url: '/banner/create',
+        method: 'POST',
+        body: banner
+      }),
     })
   })
 })
 
-export const { useGetBannersQuery } = bannerApi
+export const { useGetBannersQuery, useCreateBannerMutation } = bannerApi
