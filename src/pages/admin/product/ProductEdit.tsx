@@ -54,7 +54,6 @@ const ProductEdit: React.FC = () => {
     try {
       const response = await deleteImage({ public_id }).unwrap();
       message.success(response?.message)
-      navigate('/admin/product')
     } catch (error: unknown) {
       message.success(error as string)
     }

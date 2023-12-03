@@ -6,11 +6,13 @@ interface PrivateRouteProps {
 }
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
-  const { accessToken } = useAppSelector((state) => state.auth)
+  const { accessToken, role } = useAppSelector((state) => state.auth)
 
   return (
     <>
-      {accessToken ? children : <Navigate to={'/'} />}
+      {role === "ADMIN" ? children : accessToken ?
+        <Navigate to={'/'} /> : <Navigate to={'/login'} />
+      }
     </>
   )
 }

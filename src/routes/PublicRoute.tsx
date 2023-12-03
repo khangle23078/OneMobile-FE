@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { lazy } from 'react';
 import AdminLayout from '@/layouts/AdminLayout';
 import PrivateRoute from './PrivateRoute';
+import MainLayout from '@/layouts/MainLayout';
 
 const Login = lazy(() => import('@pages/auth/Login'));
 const CategoryList = lazy(() => import('@pages/admin/category/CategoryList'));
@@ -14,11 +15,22 @@ const OrderList = lazy(() => import('@pages/admin/order/OrderList'))
 const BannerList = lazy(() => import('@pages/admin/banner/BannerList'))
 const BannerAdd = lazy(() => import('@pages/admin/banner/BannerAdd'))
 const BannerEdit = lazy(() => import('@pages/admin/banner/BannerEdit'))
+const HomePage = lazy(() => import('@pages/client/HomePage'))
 
 export const router = createBrowserRouter([
   {
-    path: '',
+    path: '/login',
     element: <Login />,
+  },
+  {
+    path: '',
+    element: <MainLayout />,
+    children: [
+      {
+        path: '',
+        element: <HomePage />
+      }
+    ]
   },
   {
     path: 'admin',
