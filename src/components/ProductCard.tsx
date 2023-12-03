@@ -9,7 +9,7 @@ type ProductCardProps = {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
-    <Link to={`/product/${product._id}`}>
+    <Link to={`/product/detail/${product._id}`}>
       <Card className='w-[200px] h-[300px]'>
         <img src={product.image.url} className='object-cover w-[150px]' />
         <p>{product.name}</p>

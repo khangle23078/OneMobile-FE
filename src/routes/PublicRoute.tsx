@@ -16,6 +16,7 @@ const BannerList = lazy(() => import('@pages/admin/banner/BannerList'))
 const BannerAdd = lazy(() => import('@pages/admin/banner/BannerAdd'))
 const BannerEdit = lazy(() => import('@pages/admin/banner/BannerEdit'))
 const HomePage = lazy(() => import('@pages/client/HomePage'))
+const ProductDetail = lazy(() => import('@pages/client/ProductDetail'))
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
       {
         path: '',
         element: <HomePage />
+      },
+      {
+        path: 'product/detail/:id',
+        element: <ProductDetail />
       }
     ]
   },

@@ -6,7 +6,7 @@ export interface Product {
   brand: string
   origin_price: number
   sale_pice: number
-  desc: string
+  desc: any
   isHot: boolean
   category: Category
   createdAt: string
