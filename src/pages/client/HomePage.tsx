@@ -19,7 +19,7 @@ const HomePage: React.FC = () => {
           <Title level={4}>Danh sách sản phẩm</Title>
           <div className='grid items-center grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6'>
             {products ? products.map((product: Product) => {
-              return <ProductCard product={product} />
+              return <ProductCard product={product} key={product._id} />
             }) : null}
           </div>
         </Card>

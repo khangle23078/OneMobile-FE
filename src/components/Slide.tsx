@@ -28,7 +28,7 @@ const Slide: React.FC = () => {
     >
       {banners?.data ? banners?.data.map((banner: Banner) => {
         return (
-          <SwiperSlide>
+          <SwiperSlide key={banner._id}>
             <Link to={banner.product_link}>
               <img src={banner.image.url} className='object-cover w-full' />
             </Link>

@@ -1,23 +1,29 @@
 import React from 'react'
 import { useAppDispatch, useAppSelector } from '@/hooks/hook'
 import { Product } from '@/interfaces/product'
-import { Card, Image, Table, Typography } from 'antd'
+import { Button, Card, Image, InputNumber, Table, Typography } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
-import { removeItem } from '@/features/cartSlice'
+import { decrementQuantity, incrementQuantity, removeItem } from '@/features/cartSlice'
+import { formatMoney } from '@/utils/format'
 const { Title } = Typography
 
 const Cart: React.FC = () => {
-  const { products } = useAppSelector((state) => state.cart)
+  const { products, quantity } = useAppSelector((state) => state.cart)
   const dispatch = useAppDispatch()
+  console.log(products);
+
+  const totalPrice = products.reduce((total, product) => {
+    return total + (product.quantity * product.origin_price);
+  }, 0)
 
   const dataSource = products.map((product: Product, index: number) => {
     return {
       id: index + 1,
       _id: product._id,
       name: product.name,
-      image: product.image.url,
+      image: product?.image?.url,
       price: product.origin_price,
-      quantity: product.quantity
+      product: product
     }
   })
 
@@ -43,12 +49,22 @@ const Cart: React.FC = () => {
     {
       title: 'Giá sp',
       dataIndex: 'price',
-      key: 'price'
+      key: 'price',
+      render: (price: number) => {
+        return <p>{formatMoney.format(price)}</p>
+      }
     },
     {
       title: 'Số lượng',
-      dataIndex: 'quantity',
-      key: 'quantity'
+      dataIndex: 'product',
+      key: 'quantity',
+      render: (product: Product) => {
+        return <div className='flex items-center'>
+          <Button onClick={() => dispatch(incrementQuantity(product._id))}>+</Button>
+          <InputNumber value={product.quantity} />
+          <Button onClick={() => dispatch(decrementQuantity(product._id))}>-</Button>
+        </div>
+      }
     },
     {
       title: 'Thao tác',
@@ -67,9 +83,14 @@ const Cart: React.FC = () => {
   return (
     <div className='py-4 bg-gray-100'>
       <div className='h-screen max-w-6xl mx-auto'>
-        <Card className='flex-1'>
+        <Card className=''>
           <Title level={4}>Giỏ hàng</Title>
           <Table columns={colums} dataSource={dataSource} />
+        </Card>
+        <Card className='my-2'>
+          <Title level={5}>Số lượng sản phẩm : {quantity || 0}</Title>
+          <Title level={5}>Tổng tiền : {formatMoney.format(totalPrice) || 0}</Title>
+          <Button type='primary'>Mua hàng</Button>
         </Card>
       </div>
     </div>
