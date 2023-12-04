@@ -1,7 +1,6 @@
 import { Product } from '@/interfaces/product';
 import { createSlice } from '@reduxjs/toolkit'
 
-
 interface CartState {
   products: Product[],
   quantity: number,
@@ -24,13 +23,17 @@ const cartSlice = createSlice({
         existProduct.quantity++
       } else {
         state.products.push(payload)
-        state.quantity = 1
+        state.quantity++
       }
     },
     removeItem: (state, { payload }) => {
       const removedItem = state.products.filter((product: Product) => product._id !== payload);
       state.products = removedItem;
-      state.quantity--  
+      if (removeItem.length === 1) {
+        state.quantity = 1
+      } else {
+        state.quantity--
+      }
     }
   }
 });

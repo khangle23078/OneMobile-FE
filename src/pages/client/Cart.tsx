@@ -1,7 +1,7 @@
 import React from 'react'
 import { useAppDispatch, useAppSelector } from '@/hooks/hook'
 import { Product } from '@/interfaces/product'
-import { Card, Image, Table, Typography, message } from 'antd'
+import { Card, Image, Table, Typography } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
 import { removeItem } from '@/features/cartSlice'
 const { Title } = Typography
