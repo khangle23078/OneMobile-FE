@@ -17,6 +17,7 @@ const BannerAdd = lazy(() => import('@pages/admin/banner/BannerAdd'))
 const BannerEdit = lazy(() => import('@pages/admin/banner/BannerEdit'))
 const HomePage = lazy(() => import('@pages/client/HomePage'))
 const ProductDetail = lazy(() => import('@pages/client/ProductDetail'))
+const NotFound = lazy(() => import('@pages/notfound/NotFound'))
 
 export const router = createBrowserRouter([
   {
@@ -107,4 +108,8 @@ export const router = createBrowserRouter([
       }
     ],
   },
+  {
+    path: '*',
+    element: <NotFound />
+  }
 ]);
