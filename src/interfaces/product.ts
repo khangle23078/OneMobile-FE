@@ -4,7 +4,7 @@ export interface Product {
   image: Image
   quantity: number
   brand: string
-  origin_price: number
+  origin_price: any
   sale_pice: number
   desc: any
   isHot: boolean

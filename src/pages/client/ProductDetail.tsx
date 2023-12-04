@@ -1,15 +1,28 @@
 import { useGetProductQuery } from '@/app/services/product'
-import { Button, Card, Image, Typography } from 'antd'
+import { Button, Card, Image, Typography, message } from 'antd'
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { ShoppingCartOutlined } from '@ant-design/icons'
 import { formatMoney } from '@/utils/format'
+import { useAppDispatch } from '@/hooks/hook'
+import { addToCart } from '@/features/cartSlice'
+import { Product } from '@/interfaces/product'
 
 const { Title } = Typography
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams()
   const { data: product } = useGetProductQuery(id);
+  const dispatch = useAppDispatch();
+
+  const handleAddToCart = (product: Product | undefined) => {
+    try {
+      dispatch(addToCart(product))
+      message.success('Thêm vào giỏ hàng thành công!')
+    } catch (error) {
+      message.error('Có lỗi xảy ra khi thêm vào giỏ hàng')
+    }
+  }
 
   return (
     <div className='py-4 bg-gray-200'>
@@ -31,7 +44,13 @@ const ProductDetail: React.FC = () => {
                 <Title level={5}>Giá sản phẩm</Title>
                 <p className='text-base text-dark'>{formatMoney.format(product?.data.origin_price)}</p>
               </div>
-              <Button type='primary' icon={<ShoppingCartOutlined />} className='my-2'>Thêm vào giỏ hàng</Button>
+              <Button
+                type='primary'
+                icon={<ShoppingCartOutlined />}
+                className='my-2'
+                onClick={() => handleAddToCart(product?.data)}>
+                Thêm vào giỏ hàng
+              </Button>
             </div>
           </div>
         </Card>

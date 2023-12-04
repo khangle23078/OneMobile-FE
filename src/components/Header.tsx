@@ -11,6 +11,7 @@ const { Search } = Input;
 const Header: React.FC = () => {
   const { email } = useAppSelector((state) => state.auth)
   const { data: response } = useGetCategoriesQuery();
+  const { quantity } = useAppSelector((state) => state.cart)
 
   const items: MenuProps['items'] = response?.data.map((category: Category, index: number) => {
     return {
@@ -35,7 +36,7 @@ const Header: React.FC = () => {
         <Search placeholder='nhập tên sản phẩm' enterButton className='w-[600px]' />
         <div className='flex items-center gap-4'>
           <Link to={'/cart'}>
-            <Badge count={1}>
+            <Badge count={quantity} showZero>
               <ShoppingCartOutlined className='text-3xl' />
             </Badge>
           </Link>
