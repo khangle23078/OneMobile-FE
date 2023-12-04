@@ -1,4 +1,5 @@
 import { Product } from '@/interfaces/product'
+import { formatMoney } from '@/utils/format'
 import { Card } from 'antd'
 import React from 'react'
 import { Link } from 'react-router-dom'
@@ -13,7 +14,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <Card className='w-[200px] h-[300px]'>
         <img src={product.image.url} className='object-cover w-[150px]' />
         <p>{product.name}</p>
-        <p>{product.origin_price}</p>
+        <p>{formatMoney.format(product.origin_price)}</p>
       </Card>
     </Link>
   )

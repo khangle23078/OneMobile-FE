@@ -1,6 +1,7 @@
 import { useDeleteProductMutation, useGetProductsQuery } from '@/app/services/product'
 import { Product } from '@/interfaces/product'
-import { Button, Image, Space, Popconfirm, Table, Typography, message, Tag } from 'antd'
+import { formatMoney } from '@/utils/format'
+import { Button, Image, Popconfirm, Space, Table, Tag, Typography, message } from 'antd'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
@@ -42,7 +43,10 @@ const ProductList: React.FC = () => {
     {
       title: 'Giá sp',
       dataIndex: 'origin_price',
-      index: 'origin_price'
+      index: 'origin_price',
+      render: (origin_price: number) => {
+        return <p>{formatMoney.format(origin_price)}</p>
+      }
     },
     {
       title: 'Danh mục',

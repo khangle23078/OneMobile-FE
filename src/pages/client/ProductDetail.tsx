@@ -3,6 +3,7 @@ import { Button, Card, Image, Typography } from 'antd'
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { ShoppingCartOutlined } from '@ant-design/icons'
+import { formatMoney } from '@/utils/format'
 
 const { Title } = Typography
 
@@ -28,7 +29,7 @@ const ProductDetail: React.FC = () => {
               </div>
               <div>
                 <Title level={5}>Giá sản phẩm</Title>
-                <p className='text-base text-dark'>{product?.data.origin_price}</p>
+                <p className='text-base text-dark'>{formatMoney.format(product?.data.origin_price)}</p>
               </div>
               <Button type='primary' icon={<ShoppingCartOutlined />} className='my-2'>Thêm vào giỏ hàng</Button>
             </div>
