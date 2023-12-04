@@ -18,11 +18,16 @@ const BannerEdit = lazy(() => import('@pages/admin/banner/BannerEdit'))
 const HomePage = lazy(() => import('@pages/client/HomePage'))
 const ProductDetail = lazy(() => import('@pages/client/ProductDetail'))
 const NotFound = lazy(() => import('@pages/notfound/NotFound'))
+const Register = lazy(() => import('@pages/auth/Register'));
 
 export const router = createBrowserRouter([
   {
     path: '/login',
     element: <Login />,
+  },
+  {
+    path: '/register',
+    element: <Register />
   },
   {
     path: '',

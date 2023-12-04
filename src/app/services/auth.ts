@@ -16,7 +16,14 @@ const authApi = api.injectEndpoints({
         body: user,
       }),
     }),
+    register: build.mutation<Response<null>, Partial<User>>({
+      query: (user) => ({
+        url: '/auth/register',
+        method: 'POST',
+        body: user
+      })
+    })
   }),
 });
 
-export const { useLoginMutation } = authApi;
+export const { useLoginMutation, useRegisterMutation } = authApi;

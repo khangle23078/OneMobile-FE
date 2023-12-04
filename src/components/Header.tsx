@@ -4,10 +4,12 @@ import { Link } from 'react-router-dom';
 import Logo from './../assets/OneMobile.png';
 import { useGetCategoriesQuery } from '@/app/services/category';
 import { Category } from '@/interfaces/product';
+import { useAppSelector } from '@/hooks/hook';
 
 const { Search } = Input;
 
 const Header: React.FC = () => {
+  const { email } = useAppSelector((state) => state.auth)
   const { data: response } = useGetCategoriesQuery();
 
   const items: MenuProps['items'] = response?.data.map((category: Category, index: number) => {
@@ -37,9 +39,11 @@ const Header: React.FC = () => {
               <ShoppingCartOutlined className='text-3xl' />
             </Badge>
           </Link>
-          <Link to={'/login'}>
-            <Button type='primary'>Đăng nhập</Button>
-          </Link>
+          {email ? <p className='text-sm'>{email}</p>
+            : <Link to={'/login'}>
+              <Button type='primary'>Đăng nhập</Button>
+            </Link>
+          }
         </div>
       </div>
     </div>
