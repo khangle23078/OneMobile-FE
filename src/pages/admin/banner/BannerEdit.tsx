@@ -2,10 +2,10 @@ import { useEditBannerMutation, useGetBannerQuery } from '@/app/services/banner'
 import { useDeleteFileMutation } from '@/app/services/upload'
 import { useAppSelector } from '@/hooks/hook'
 import { Iimage } from '@/interfaces/image'
-import { Button, Form, Image, Input, Typography, Upload, message } from 'antd'
+import { Button, Form, Image, Input, Space, Typography, Upload, message } from 'antd'
 import { useForm } from 'antd/es/form/Form'
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { UploadOutlined } from '@ant-design/icons'
 import { Banner } from '@/interfaces/banner'
 
@@ -28,6 +28,7 @@ const BannerEdit: React.FC = () => {
         product_link: banner.product_link,
         image: banner.image
       })
+      setImageUrl(form.getFieldValue('image'))
     }
 
     return () => {
@@ -43,7 +44,7 @@ const BannerEdit: React.FC = () => {
       message.success(error as string)
     }
   }
-  
+
   const handleEditBanner = async (data: Partial<Banner>) => {
     try {
       const response = await editBanner({ id, data }).unwrap()
@@ -79,12 +80,17 @@ const BannerEdit: React.FC = () => {
           </Upload>
         </Form.Item>
         <div>
-          {form.getFieldValue('image') ? <Image src={form.getFieldValue('image')?.url} width={300} height={300} /> : null}
+          {imageUrl ? <Image src={imageUrl.url} width={300} height={300} /> : null}
         </div>
         <Form.Item label='Link sản phẩm' name='product_link'>
           <Input />
         </Form.Item>
-        <Button type='primary' htmlType='submit' loading={isLoading}>Sửa</Button>
+        <Space>
+          <Button type='primary' htmlType='submit' loading={isLoading}>Sửa</Button>
+          <Link to={'/admin/product'}>
+            <Button type='dashed'>Hủy</Button>
+          </Link>
+        </Space>
       </Form>
     </>
   )

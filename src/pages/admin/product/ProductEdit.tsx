@@ -4,11 +4,11 @@ import { editorConfig } from '@/configs/editor.config'
 import { useAppSelector } from '@/hooks/hook'
 import { Category } from '@/interfaces/category'
 import { Iimage } from '@/interfaces/image'
-import { Button, Form, Image, Input, InputNumber, Select, Typography, Upload, message } from 'antd'
+import { Button, Form, Image, Input, InputNumber, Select, Space, Typography, Upload, message } from 'antd'
 import { useForm } from 'antd/es/form/Form'
 import React, { useEffect, useState } from 'react'
 import ReactQuill from 'react-quill'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { UploadOutlined } from '@ant-design/icons'
 import { useDeleteFileMutation } from '@/app/services/upload'
 import { Product } from '@/interfaces/product'
@@ -34,14 +34,14 @@ const ProductEdit: React.FC = () => {
         origin_price: product.origin_price,
         category: product.category,
         desc: product.desc,
-        image: product.image.url
+        image: product.image
       })
+      setImageUrl(form.getFieldValue('image'))
     }
     return () => {
       form.resetFields()
     }
   }, [response, form])
-
 
   const categories = data?.data.map((category: Category) => {
     return {
@@ -128,11 +128,14 @@ const ProductEdit: React.FC = () => {
           </Upload >
         </Form.Item>
         <div className='py-2'>
-          {form.getFieldValue('image') ? <Image src={form.getFieldValue('image')?.url} width={300} height={300} /> : null}
+          {<Image src={imageUrl?.url} width={300} height={300} />}
         </div>
-        <Button type="primary" htmlType="submit" loading={isLoading}>
-          Sửa sản phẩm
-        </Button>
+        <Space>
+          <Button type='primary' htmlType='submit' loading={isLoading}>Sửa sản phẩm</Button>
+          <Link to={'/admin/product'}>
+            <Button type='dashed'>Hủy</Button>
+          </Link>
+        </Space>
       </Form>
     </>
   )
