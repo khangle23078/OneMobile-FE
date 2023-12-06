@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { lazy } from 'react';
+
 import AdminLayout from '@/layouts/AdminLayout';
 import PrivateRoute from './PrivateRoute';
 import MainLayout from '@/layouts/MainLayout';
@@ -17,9 +18,11 @@ const BannerAdd = lazy(() => import('@pages/admin/banner/BannerAdd'))
 const BannerEdit = lazy(() => import('@pages/admin/banner/BannerEdit'))
 const HomePage = lazy(() => import('@pages/client/HomePage'))
 const ProductDetail = lazy(() => import('@pages/client/ProductDetail'))
-const NotFound = lazy(() => import('@pages/notfound/NotFound'))
+const NotFound = lazy(() => import('@/pages/result/NotFound'))
 const Register = lazy(() => import('@pages/auth/Register'));
 const Cart = lazy(() => import('@pages/client/Cart'))
+const Checkout = lazy(() => import('@pages/client/Checkout'))
+const Success = lazy(() => import('@pages/result/Success'))
 
 export const router = createBrowserRouter([
   {
@@ -45,6 +48,14 @@ export const router = createBrowserRouter([
       {
         path: 'cart',
         element: <Cart />
+      },
+      {
+        path: 'checkout',
+        element: <Checkout />
+      },
+      {
+        path: 'success',
+        element: <Success />
       }
     ]
   },

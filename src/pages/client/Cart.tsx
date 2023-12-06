@@ -5,6 +5,7 @@ import { Button, Card, Image, InputNumber, Table, Typography } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
 import { decrementQuantity, incrementQuantity, removeItem } from '@/features/cartSlice'
 import { formatMoney } from '@/utils/format'
+import { Link } from 'react-router-dom'
 const { Title } = Typography
 
 const Cart: React.FC = () => {
@@ -80,6 +81,7 @@ const Cart: React.FC = () => {
       }
     }
   ]
+
   return (
     <div className='py-4 bg-gray-100'>
       <div className='h-screen max-w-6xl mx-auto'>
@@ -90,7 +92,9 @@ const Cart: React.FC = () => {
         <Card className='my-2'>
           <Title level={5}>Số lượng sản phẩm : {quantity || 0}</Title>
           <Title level={5}>Tổng tiền : {formatMoney.format(totalPrice) || 0}</Title>
-          <Button type='primary'>Mua hàng</Button>
+          <Link to={'/checkout'}>
+            <Button type='primary'>Mua hàng</Button>
+          </Link>
         </Card>
       </div>
     </div>

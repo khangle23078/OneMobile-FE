@@ -2,12 +2,14 @@ import { User } from '@/interfaces/user';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface AuthState {
+  _id: string | null;
   email: string | null;
   accessToken: string | null;
   role: string
 }
 
 const initialState = {
+  _id: null,
   email: null,
   accessToken: null,
 } as AuthState;
@@ -20,6 +22,7 @@ const authSlice = createSlice({
       state.email = payload?.email;
       state.accessToken = payload?.accessToken;
       state.role = payload.role
+      state._id = payload._id
     },
   }
 });

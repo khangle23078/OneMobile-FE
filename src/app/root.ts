@@ -1,7 +1,7 @@
 import authSlice from "@/features/authSlice";
+import cartSlice from "@/features/cartSlice";
 import { combineReducers } from "redux";
 import { api } from "./services/api";
-import cartSlice from "@/features/cartSlice";
 
 export const rootReducer = combineReducers({
   [api.reducerPath]: api.reducer,
