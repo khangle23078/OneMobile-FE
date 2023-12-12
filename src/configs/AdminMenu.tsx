@@ -10,7 +10,7 @@ import { NavLink } from 'react-router-dom';
 export const adminMenus = [
   {
     label: (
-      <NavLink to="/admin/dashboard" className="text-white">
+      <NavLink to="/admin" className="text-white">
         Dashboard
       </NavLink>
     ),
