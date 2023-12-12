@@ -1,5 +1,5 @@
 import { useCreateCategoryMutation } from '@/app/services/category';
-import { Button, Form, Input, Typography, message } from 'antd';
+import { Button, Card, Form, Input, Typography, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 const { Title } = Typography;
@@ -20,7 +20,7 @@ const CategoryAdd = () => {
   };
 
   return (
-    <>
+    <Card>
       <Title level={4}>Tạo danh mục</Title>
       <Form layout="vertical" name="categoryAdd" onFinish={onSubmit} initialValues={{ name: '' }}>
         <Form.Item
@@ -36,7 +36,7 @@ const CategoryAdd = () => {
           </Button>
         </Form.Item>
       </Form>
-    </>
+    </Card>
   );
 };
 

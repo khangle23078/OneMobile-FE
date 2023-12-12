@@ -1,4 +1,4 @@
-import { Button, Form, Image, Input, Typography, Upload, message } from 'antd'
+import { Button, Card, Form, Image, Input, Typography, Upload, message } from 'antd'
 import React, { useState } from 'react'
 import { UploadOutlined } from '@ant-design/icons'
 import { useAppSelector } from '@/hooks/hook'
@@ -37,7 +37,7 @@ const BannerAdd: React.FC = () => {
   }
 
   return (
-    <>
+    <Card>
       <Title level={4}>Thêm mới banner</Title>
       <Form layout="vertical" onFinish={handleAddBanner}>
         <Form.Item
@@ -67,7 +67,7 @@ const BannerAdd: React.FC = () => {
         </Form.Item>
         <Button type='primary' htmlType='submit' loading={isLoading}>Thêm mới</Button>
       </Form>
-    </>
+    </Card>
   )
 }
 

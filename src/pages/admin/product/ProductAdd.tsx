@@ -7,7 +7,7 @@ import { Category } from '@/interfaces/category';
 import { Iimage } from '@/interfaces/image';
 import { Product } from '@/interfaces/product';
 import { UploadOutlined } from '@ant-design/icons';
-import { Button, Form, Image, Input, InputNumber, Select, Typography, Upload, message } from 'antd';
+import { Button, Card, Form, Image, Input, InputNumber, Select, Typography, Upload, message } from 'antd';
 import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import { useNavigate } from 'react-router-dom';
@@ -49,7 +49,7 @@ const ProductAdd: React.FC = () => {
   })
 
   return (
-    <>
+    <Card>
       <Title level={4}>Thêm mới sản phẩm</Title>
       <Form name="productAdd" layout="vertical" onFinish={handleAddProduct}>
         <Form.Item
@@ -113,7 +113,7 @@ const ProductAdd: React.FC = () => {
           Thêm mới
         </Button>
       </Form>
-    </>
+    </Card>
   );
 };
 
