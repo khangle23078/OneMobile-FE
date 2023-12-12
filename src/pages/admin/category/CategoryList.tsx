@@ -1,6 +1,6 @@
 import { useDeleteCategoryMutation, useGetCategoriesQuery } from '@/app/services/category';
 import { Category } from '@/interfaces/category';
-import { Button, Popconfirm, Space, Table, message } from 'antd';
+import { Button, Card, Popconfirm, Space, Table, message } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { NavLink } from 'react-router-dom';
 
@@ -63,7 +63,11 @@ const CategoryList = () => {
     };
   });
 
-  return <Table columns={columns} dataSource={dataSource} loading={isLoading} rowKey={'id'} />;
+  return (
+    <Card>
+      <Table columns={columns} dataSource={dataSource} loading={isLoading} rowKey={'id'} />;
+    </Card>
+  )
 };
 
 export default CategoryList;

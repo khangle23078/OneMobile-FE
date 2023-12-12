@@ -1,7 +1,7 @@
 import { useDeleteProductMutation, useGetProductsQuery } from '@/app/services/product'
 import { Product } from '@/interfaces/product'
 import { formatMoney } from '@/utils/format'
-import { Button, Image, Popconfirm, Space, Table, Tag, Typography, message } from 'antd'
+import { Button, Card, Image, Popconfirm, Space, Table, Tag, Typography, message } from 'antd'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
@@ -90,10 +90,10 @@ const ProductList: React.FC = () => {
   })
 
   return (
-    <>
+    <Card>
       <Title level={3}>Danh sách sản phẩm</Title>
       <Table dataSource={dataSource} columns={comlumns} loading={isLoading} rowKey={'id'} />
-    </>
+    </Card>
   )
 }
 

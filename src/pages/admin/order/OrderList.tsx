@@ -1,6 +1,6 @@
 import { useGetOrdersQuery } from '@/app/services/order'
 import { Order } from '@/interfaces/order'
-import { Button, Space, Table, Tag, Typography } from 'antd'
+import { Button, Card, Space, Table, Tag, Typography } from 'antd'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
@@ -72,7 +72,7 @@ const OrderList: React.FC = () => {
   })
 
   return (
-    <>
+    <Card>
       <Title level={4}>Danh sách đơn hàng</Title>
       <Table
         columns={colums}
@@ -80,7 +80,7 @@ const OrderList: React.FC = () => {
         loading={isLoading}
         rowKey={'_id'}
       />
-    </>
+    </Card>
   )
 }
 

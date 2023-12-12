@@ -1,6 +1,6 @@
 import { useDeleteBannerMutation, useGetBannersQuery } from '@/app/services/banner'
 import { Banner } from '@/interfaces/banner'
-import { Button, Image, Popconfirm, Space, Table, Typography, message } from 'antd'
+import { Button, Card, Image, Popconfirm, Space, Table, Typography, message } from 'antd'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
@@ -72,10 +72,10 @@ const BannerList: React.FC = () => {
 
 
   return (
-    <>
+    <Card>
       <Title level={4}>Danh sách banner</Title>
       <Table columns={comlumns} dataSource={dataSource} loading={isLoading} rowKey={'_id'} />
-    </>
+    </Card>
   )
 }
 

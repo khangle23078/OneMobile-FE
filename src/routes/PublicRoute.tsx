@@ -25,7 +25,8 @@ const Register = lazy(() => import('@pages/auth/Register'));
 const Cart = lazy(() => import('@pages/client/Cart'))
 const Checkout = lazy(() => import('@pages/client/Checkout'))
 const Success = lazy(() => import('@pages/result/Success'))
-
+const Dashboard = lazy(() => import('@pages/admin/dashboard/Dashboard')
+)
 export const router = createBrowserRouter([
   {
     path: '/login',
@@ -77,6 +78,10 @@ export const router = createBrowserRouter([
       </PrivateRoute>
     ,
     children: [
+      {
+        path: '',
+        element: <Dashboard />
+      },
       {
         path: 'category',
         children: [

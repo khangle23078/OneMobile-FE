@@ -31,9 +31,7 @@ const AdminLayout = () => {
             <Breadcrumb.Item>User</Breadcrumb.Item>
             <Breadcrumb.Item>Bill</Breadcrumb.Item>
           </Breadcrumb>
-          <div style={{ padding: 24, minHeight: 360, background: colorBgContainer }}>
-            <Outlet />
-          </div>
+          <Outlet />
         </Content>
         <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer>
       </Layout>
