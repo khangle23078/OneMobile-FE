@@ -8,6 +8,9 @@ const productApi = api.injectEndpoints({
       query: () => '/product/getAll',
       providesTags: ['Product'],
     }),
+    getProductsByCategory: build.query<Response<Product[]>, string | undefined>({
+      query: (id) => `/product/category/${id}`
+    }),
     getProduct: build.query<Response<Product>, string | undefined>({
       query: (_id) => `/product/getById/${_id}`,
     }),
@@ -38,6 +41,7 @@ const productApi = api.injectEndpoints({
 
 export const {
   useGetProductsQuery,
+  useGetProductsByCategoryQuery,
   useGetProductQuery,
   useCreateProductMutation,
   useEditproductMutation,

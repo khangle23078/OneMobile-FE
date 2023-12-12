@@ -1,6 +1,7 @@
 import { useCreateOrderMutation } from '@/app/services/order'
 import { decrementQuantity, incrementQuantity, removeItem } from '@/features/cartSlice'
 import { useAppDispatch, useAppSelector } from '@/hooks/hook'
+import { Order } from '@/interfaces/order'
 import { Product } from '@/interfaces/product'
 import { formatMoney } from '@/utils/format'
 import { DeleteOutlined } from '@ant-design/icons'
@@ -12,34 +13,35 @@ const { Title } = Typography
 
 const Checkout: React.FC = () => {
   const { products, quantity } = useAppSelector((state) => state.cart)
-  const { _id } = useAppSelector((state) => state.auth)
+  const { id } = useAppSelector((state) => state.auth)
   const dispatch = useAppDispatch()
   const [createOrder, { isLoading, isError }] = useCreateOrderMutation()
   const navigate = useNavigate();
 
-  const handleCheckoutOrder = async (data: any) => {
+  const handleCheckoutOrder = async (data: Partial<Order>) => {
     try {
-      const id = products.map((product: Partial<Product>) => {
+      const productId = products.map((product: Partial<Product>) => {
         return product._id
       })
+      console.log(productId);
+
       const orderData = {
         ...data,
-        products: id, product_count:
-          quantity,
+        products: productId,
+        product_count: quantity,
         total_price: totalPrice,
-        user_id: _id
+        user: id
       };
       console.log(orderData);
 
-      const response = await createOrder(orderData).unwrap();
+      const response = await createOrder(data).unwrap();
       console.log(response);
 
-      message.success(response.message)
-      navigate('/success')
-      if (isError) {
-        message.error('Đã có lỗi xảy ra khi thanh toán đơn hàng')
-      }
-      console.log(await createOrder(orderData).unwrap());
+      // message.success(response.message)
+      // navigate('/success')
+      // if (isError) {
+      //   message.error('Đã có lỗi xảy ra khi thanh toán đơn hàng')
+      // }
 
     } catch (error) {
       message.error('Có lỗi xảy ra khi thanh toán')
@@ -128,7 +130,7 @@ const Checkout: React.FC = () => {
         </Card>
         <Card className='flex-1'>
           <Title level={4}>Thanh toán</Title>
-          <Form layout='vertical' onFinish={handleCheckoutOrder} >
+          <Form name='checkoutForm' layout='vertical' onFinish={handleCheckoutOrder} >
             <Form.Item
               label='Họ và tên'
               name='full_name'
@@ -159,6 +161,7 @@ const Checkout: React.FC = () => {
             <Form.Item
               label='Lưu ý'
               name='description'
+              initialValue={null}
             >
               <Input.TextArea placeholder='Vui lòng nhập mô tả' />
             </Form.Item>

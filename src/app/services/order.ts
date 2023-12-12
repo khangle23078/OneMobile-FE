@@ -2,8 +2,6 @@ import { Response } from "@/interfaces/response";
 import { api } from "./api";
 import { Order } from "@/interfaces/order";
 
-
-
 const orderApi = api.injectEndpoints({
   endpoints: (build) => ({
     getOrders: build.query<Response<Order[]>, void>({
@@ -14,7 +12,7 @@ const orderApi = api.injectEndpoints({
       query: (order) => ({
         url: '/order/create',
         method: 'POST',
-        data: order
+        data: order,
       }),
     })
   })

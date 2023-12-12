@@ -5,7 +5,7 @@ export interface Order {
   address: string,
   status: string,
   product_count: number,
-  total_pice: number,
+  total_price: number,
   products: (string | undefined)[],
-  user_id: string | undefined,
+  user: string | undefined,
 }

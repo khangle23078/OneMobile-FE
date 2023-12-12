@@ -17,6 +17,7 @@ const BannerList = lazy(() => import('@pages/admin/banner/BannerList'))
 const BannerAdd = lazy(() => import('@pages/admin/banner/BannerAdd'))
 const BannerEdit = lazy(() => import('@pages/admin/banner/BannerEdit'))
 const HomePage = lazy(() => import('@pages/client/HomePage'))
+const Category = lazy(() => import('@pages/client/Category'))
 const ProductDetail = lazy(() => import('@pages/client/ProductDetail'))
 const NotFound = lazy(() => import('@/pages/result/NotFound'))
 const Register = lazy(() => import('@pages/auth/Register'));
@@ -44,6 +45,10 @@ export const router = createBrowserRouter([
       {
         path: 'product/detail/:id',
         element: <ProductDetail />
+      },
+      {
+        path: `category/:id`,
+        element: <Category />
       },
       {
         path: 'cart',
