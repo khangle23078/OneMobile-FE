@@ -20,7 +20,7 @@ const categoryApi = api.injectEndpoints({
       }),
       invalidatesTags: ['Category']
     }),
-    editCategory: build.mutation<void, { id: string | undefined; data: Partial<Category> }>({
+    editCategory: build.mutation<Response<null>, { id: string | undefined; data: Partial<Category> }>({
       query: (category) => ({
         url: `/category/updateById/${category.id}`,
         method: 'PUT',
@@ -29,10 +29,10 @@ const categoryApi = api.injectEndpoints({
       invalidatesTags: ['Category']
     })
     ,
-    deleteCategory: build.mutation<void, string | undefined>({
+    deleteCategory: build.mutation<Response<null>, string | undefined>({
       query: (id) => ({
         url: `/category/deleteById/${id}`,
-        method: 'post',
+        method: 'DELETE',
       }),
       invalidatesTags: ['Category'],
     }),

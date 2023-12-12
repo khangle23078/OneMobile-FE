@@ -2,7 +2,7 @@ import { useEditBannerMutation, useGetBannerQuery } from '@/app/services/banner'
 import { useDeleteFileMutation } from '@/app/services/upload'
 import { useAppSelector } from '@/hooks/hook'
 import { Iimage } from '@/interfaces/image'
-import { Button, Form, Image, Input, Space, Typography, Upload, message } from 'antd'
+import { Button, Card, Form, Image, Input, Space, Typography, Upload, message } from 'antd'
 import { useForm } from 'antd/es/form/Form'
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
@@ -57,7 +57,7 @@ const BannerEdit: React.FC = () => {
 
 
   return (
-    <>
+    <Card>
       <Title level={4}>Sửa banner</Title>
       <Form layout='vertical' form={form} onFinish={handleEditBanner}>
         <Form.Item
@@ -92,7 +92,7 @@ const BannerEdit: React.FC = () => {
           </Link>
         </Space>
       </Form>
-    </>
+    </Card>
   )
 }
 

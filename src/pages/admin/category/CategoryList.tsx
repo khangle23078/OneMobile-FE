@@ -12,12 +12,14 @@ interface DataType {
 
 const CategoryList = () => {
   const { isLoading, data: response } = useGetCategoriesQuery();
-  const [deleteCategory, { isSuccess }] = useDeleteCategoryMutation()
+  const [deleteCategory] = useDeleteCategoryMutation()
 
   const handleDeleteCategory = async (id: string | undefined) => {
-    await deleteCategory(id)
-    if (isSuccess) {
-      message.success('Xóa danh mục thành công')
+    try {
+      const response = await deleteCategory(id).unwrap()
+      message.success(response.message)
+    } catch (error) {
+      message.error('Có lỗi xảy ra khi xóa danh mục')
     }
   }
 

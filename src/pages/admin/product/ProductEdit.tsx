@@ -4,7 +4,7 @@ import { editorConfig } from '@/configs/editor.config'
 import { useAppSelector } from '@/hooks/hook'
 import { Category } from '@/interfaces/category'
 import { Iimage } from '@/interfaces/image'
-import { Button, Form, Image, Input, InputNumber, Select, Space, Typography, Upload, message } from 'antd'
+import { Button, Card, Form, Image, Input, InputNumber, Select, Space, Typography, Upload, message } from 'antd'
 import { useForm } from 'antd/es/form/Form'
 import React, { useEffect, useState } from 'react'
 import ReactQuill from 'react-quill'
@@ -70,7 +70,7 @@ const ProductEdit: React.FC = () => {
   }
 
   return (
-    <>
+    <Card>
       <Title level={4}>Sửa sản phẩm</Title>
       <Form name="productEdit" form={form} layout="vertical" onFinish={handleEditProduct}>
         <Form.Item
@@ -137,7 +137,7 @@ const ProductEdit: React.FC = () => {
           </Link>
         </Space>
       </Form>
-    </>
+    </Card>
   )
 }
 
