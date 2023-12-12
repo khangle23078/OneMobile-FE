@@ -6,7 +6,7 @@ import { Button, Card, Form, Image, Input, Space, Typography, Upload, message } 
 import { useForm } from 'antd/es/form/Form'
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { UploadOutlined } from '@ant-design/icons'
+import { UploadOutlined, CloseOutlined } from '@ant-design/icons'
 import { Banner } from '@/interfaces/banner'
 
 const { Title } = Typography
@@ -40,6 +40,7 @@ const BannerEdit: React.FC = () => {
     try {
       const response = await deleteImage({ public_id }).unwrap();
       message.success(response?.message)
+      setImageUrl(null)
     } catch (error: unknown) {
       message.success(error as string)
     }
@@ -79,9 +80,13 @@ const BannerEdit: React.FC = () => {
             <Button icon={<UploadOutlined />}>Thêm ảnh</Button>
           </Upload>
         </Form.Item>
-        <div>
-          {imageUrl ? <Image src={imageUrl.url} width={300} height={300} /> : null}
+        {imageUrl ? <div className='w-[300px] relative'>
+          <Image src={imageUrl?.url} width={300} height={300} />
+          <CloseOutlined
+            className='absolute top-0 right-0 text-xl cursor-pointer'
+            onClick={() => handleRemoveImage(imageUrl.public_id)} />
         </div>
+          : null}
         <Form.Item label='Link sản phẩm' name='product_link'>
           <Input />
         </Form.Item>

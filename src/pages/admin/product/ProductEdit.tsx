@@ -9,7 +9,7 @@ import { useForm } from 'antd/es/form/Form'
 import React, { useEffect, useState } from 'react'
 import ReactQuill from 'react-quill'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { UploadOutlined } from '@ant-design/icons'
+import { UploadOutlined, CloseOutlined } from '@ant-design/icons'
 import { useDeleteFileMutation } from '@/app/services/upload'
 import { Product } from '@/interfaces/product'
 
@@ -54,6 +54,7 @@ const ProductEdit: React.FC = () => {
     try {
       const response = await deleteImage({ public_id }).unwrap();
       message.success(response?.message)
+      setImageUrl(null)
     } catch (error: unknown) {
       message.success(error as string)
     }
@@ -127,9 +128,13 @@ const ProductEdit: React.FC = () => {
             <Button icon={<UploadOutlined />}>Chọn ảnh để tải lên</Button>
           </Upload >
         </Form.Item>
-        <div className='py-2'>
-          {<Image src={imageUrl?.url} width={300} height={300} />}
+        {imageUrl ? <div className='w-[300px] relative'>
+          <Image src={imageUrl?.url} width={300} height={300} />
+          <CloseOutlined
+            className='absolute top-0 right-0 text-xl cursor-pointer'
+            onClick={() => handleRemoveImage(imageUrl.public_id)} />
         </div>
+          : null}
         <Space>
           <Button type='primary' htmlType='submit' loading={isLoading}>Sửa sản phẩm</Button>
           <Link to={'/admin/product'}>
