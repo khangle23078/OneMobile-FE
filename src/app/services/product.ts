@@ -11,6 +11,9 @@ const productApi = api.injectEndpoints({
     getProductsByCategory: build.query<Response<Product[]>, string | undefined>({
       query: (id) => `/product/category/${id}`
     }),
+    getProductByName: build.query<Response<Product[]>, string | undefined>({
+      query: (q) => `/product/search?q=${q}`
+    }),
     getProduct: build.query<Response<Product>, string | undefined>({
       query: (_id) => `/product/getById/${_id}`,
     }),
@@ -43,6 +46,7 @@ export const {
   useGetProductsQuery,
   useGetProductsByCategoryQuery,
   useGetProductQuery,
+  useGetProductByNameQuery,
   useCreateProductMutation,
   useEditproductMutation,
   useDeleteProductMutation,

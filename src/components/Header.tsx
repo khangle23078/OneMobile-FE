@@ -1,12 +1,11 @@
 import { MenuOutlined, ShoppingCartOutlined } from '@ant-design/icons';
-import { Badge, Button, Dropdown, Input, MenuProps } from 'antd';
+import { Badge, Button, Dropdown, MenuProps } from 'antd';
 import { Link } from 'react-router-dom';
 import Logo from './../assets/OneMobile.png';
 import { useGetCategoriesQuery } from '@/app/services/category';
 import { Category } from '@/interfaces/product';
 import { useAppSelector } from '@/hooks/hook';
-
-const { Search } = Input;
+import SearchBar from './SearchBar';
 
 const Header: React.FC = () => {
   const { email } = useAppSelector((state) => state.auth)
@@ -33,7 +32,7 @@ const Header: React.FC = () => {
             <Button type='dashed' icon={<MenuOutlined />}>Danh mục</Button>
           </Dropdown>
         </div>
-        <Search placeholder='nhập tên sản phẩm' enterButton className='w-[600px]' />
+        <SearchBar />
         <div className='flex items-center gap-4'>
           <Link to={'/cart'}>
             <Badge count={quantity} showZero>
