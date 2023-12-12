@@ -5,13 +5,14 @@ interface AuthState {
   id: string | null;
   email: string | null;
   accessToken: string | null;
-  role: string
+  role: string | null
 }
 
 const initialState = {
   id: null,
   email: null,
   accessToken: null,
+  role: null
 } as AuthState;
 
 const authSlice = createSlice({
@@ -24,9 +25,15 @@ const authSlice = createSlice({
       state.role = payload.role
       state.id = payload._id
     },
+    logout: (state) => {
+      state.accessToken = null
+      state.email = null
+      state.role = null
+      state.id = null
+    }
   }
 });
 
-export const { setCredential } = authSlice.actions;
+export const { setCredential, logout } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -6,6 +6,7 @@ import { useGetCategoriesQuery } from '@/app/services/category';
 import { Category } from '@/interfaces/product';
 import { useAppSelector } from '@/hooks/hook';
 import SearchBar from './SearchBar';
+import UserDropdown from './UserDropdown';
 
 const Header: React.FC = () => {
   const { email } = useAppSelector((state) => state.auth)
@@ -39,7 +40,7 @@ const Header: React.FC = () => {
               <ShoppingCartOutlined className='text-3xl' />
             </Badge>
           </Link>
-          {email ? <p className='text-sm'>{email}</p>
+          {email ? <UserDropdown />
             : <Link to={'/login'}>
               <Button type='primary'>Đăng nhập</Button>
             </Link>
