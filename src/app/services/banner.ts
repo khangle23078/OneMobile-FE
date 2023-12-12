@@ -17,6 +17,7 @@ const bannerApi = api.injectEndpoints({
         method: 'POST',
         body: banner
       }),
+      invalidatesTags: ['Banner']
     }),
     editBanner: build.mutation<Response<null>, { id: string | undefined, data: Partial<Banner> }>({
       query: (banner) => ({
@@ -24,6 +25,7 @@ const bannerApi = api.injectEndpoints({
         method: 'PUT',
         body: banner.data
       }),
+      invalidatesTags: ['Banner']
     }),
     deleteBanner: build.mutation<Response<null>, string>({
       query: (id) => ({

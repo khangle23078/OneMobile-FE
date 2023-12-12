@@ -23,6 +23,7 @@ const productApi = api.injectEndpoints({
         method: 'POST',
         body: product,
       }),
+      invalidatesTags: ['Product']
     }),
     editproduct: build.mutation<Response<void>, { id: string | undefined; data: Partial<Product> }>({
       query: (product) => ({
