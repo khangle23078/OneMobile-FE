@@ -12,7 +12,7 @@ const categoryApi = api.injectEndpoints({
       query: (id) => `/category/getById/${id}`,
       providesTags: ['Category'],
     }),
-    createCategory: build.mutation<void, { name: string }>({
+    createCategory: build.mutation<Response<null>, { name: string }>({
       query: (data: { name: string }) => ({
         url: '/category/create',
         method: 'POST',
