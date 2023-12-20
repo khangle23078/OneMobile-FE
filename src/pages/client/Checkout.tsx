@@ -1,7 +1,6 @@
 import { useCreateOrderMutation } from '@/app/services/order'
 import { decrementQuantity, incrementQuantity, removeItem } from '@/features/cartSlice'
 import { useAppDispatch, useAppSelector } from '@/hooks/hook'
-import { Order } from '@/interfaces/order'
 import { Product } from '@/interfaces/product'
 import { formatMoney } from '@/utils/format'
 import { DeleteOutlined } from '@ant-design/icons'
@@ -15,16 +14,14 @@ const Checkout: React.FC = () => {
   const { products, quantity } = useAppSelector((state) => state.cart)
   const { id } = useAppSelector((state) => state.auth)
   const dispatch = useAppDispatch()
-  const [createOrder, { isLoading, isError }] = useCreateOrderMutation()
+  const [createOrder, { isLoading }] = useCreateOrderMutation()
   const navigate = useNavigate();
 
-  const handleCheckoutOrder = async (data: Partial<Order>) => {
+  const handleCheckoutOrder = async (data: any) => {
     try {
       const productId = products.map((product: Partial<Product>) => {
         return product._id
       })
-      console.log(productId);
-
       const orderData = {
         ...data,
         products: productId,
@@ -32,17 +29,9 @@ const Checkout: React.FC = () => {
         total_price: totalPrice,
         user: id
       };
-      console.log(orderData);
-
-      const response = await createOrder(data).unwrap();
-      console.log(response);
-
-      // message.success(response.message)
-      // navigate('/success')
-      // if (isError) {
-      //   message.error('Đã có lỗi xảy ra khi thanh toán đơn hàng')
-      // }
-
+      const response = await createOrder(orderData).unwrap();
+      message.success(response.message)
+      navigate('/success')
     } catch (error) {
       message.error('Có lỗi xảy ra khi thanh toán')
     }
