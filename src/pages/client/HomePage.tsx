@@ -9,7 +9,6 @@ const { Title } = Typography
 
 const HomePage: React.FC = () => {
   const { data: response } = useGetProductsQuery()
-  
   const products = response?.data;
   
   return (
