@@ -9,6 +9,7 @@ const { Title } = Typography
 
 const HomePage: React.FC = () => {
   const { data: response } = useGetProductsQuery()
+  console.log(`${import.meta.env.VITE_API_URL}`);
 
   const products = response?.data;
   return (
