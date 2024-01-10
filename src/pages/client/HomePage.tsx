@@ -1,16 +1,16 @@
 import { useGetProductsQuery } from '@/app/services/product'
-import ProductCard from '@/components/ProductCard'
 import Slide from '@/components/Slide'
 import { Product } from '@/interfaces/product'
 import { Card, Typography } from 'antd'
 import React from 'react'
+import ProductCard from './../../components/ProductCard'
 
 const { Title } = Typography
 
 const HomePage: React.FC = () => {
   const { data: response } = useGetProductsQuery()
   const products = response?.data;
-  
+
   return (
     <div className='py-4 bg-gray-100'>
       <div className='mx-auto max-w-7xl'>
